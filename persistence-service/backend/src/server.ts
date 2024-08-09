@@ -19,6 +19,9 @@ import AuthorApi from './api/authorApi';
 import { PublisherRepositoryDataConnector } from './repositories/publisher-repository/publisherRepositoryDataConnector';
 import PublisherRepository from './repositories/publisher-repository/publisherRepository';
 import PublisherApi from './api/publisherApi';
+import { BookRepositoryDataConnector } from './repositories/book-repository/bookRepositoryDataConnector';
+import BookRepository from './repositories/book-repository/bookRepository';
+import BookApi from './api/bookApi';
 
 (async () => {
     const app = express();
@@ -39,10 +42,14 @@ import PublisherApi from './api/publisherApi';
     const publisherRepositoryDataConnector = new PublisherRepositoryDataConnector(datasource);
     const publisherRepository = new PublisherRepository(publisherRepositoryDataConnector);
 
+    const bookRepositoryDataConnector = new BookRepositoryDataConnector(datasource);
+    const bookRepository = new BookRepository(bookRepositoryDataConnector, authorRepositoryDataConnector, publisherRepositoryDataConnector);
+
     new PhotoApi(photoRepository, app);
     new CustomerApi(customerRepository, app);
     new AuthorApi(authorRepository, app);
     new PublisherApi(publisherRepository, app);
+    new BookApi(bookRepository, app);
 
     app.get("/", (_, res) => {
         return res.send("hello world");

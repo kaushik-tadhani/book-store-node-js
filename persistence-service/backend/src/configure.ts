@@ -3,6 +3,7 @@ import { Photo } from "./entities/photo";
 import Customer from "./entities/customer";
 import Author from "./entities/author";
 import Publisher from "./entities/publisher";
+import Book from "./entities/book";
 
 export const postgresDataSource = new DataSource({
   type: "postgres",
@@ -11,7 +12,7 @@ export const postgresDataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [Photo, Customer, Author, Publisher],
+  entities: [Photo, Customer, Author, Publisher, Book],
   synchronize: true,
   logging: false,
 });
