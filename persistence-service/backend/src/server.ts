@@ -10,6 +10,9 @@ import postgresDataSource from "./configure";
 import PhotoApi from "./api/photoApi";
 import PhotoRepository from "./repositories/photo-repository/photoRepository";
 import { PhotoRepositoryDataConnector } from './repositories/photo-repository/photoRepositoryDataConnector';
+import { CustomerRepositoryDataConnector } from './repositories/customer-repository/customerRepositoryDataConnector';
+import CustomerRepository from './repositories/customer-repository/customerRepository';
+import CustomerApi from './api/customerApi';
 
 (async () => {
     const app = express();
@@ -21,7 +24,12 @@ import { PhotoRepositoryDataConnector } from './repositories/photo-repository/ph
     const photoRepositoryDataConnector = new PhotoRepositoryDataConnector(datasource);
     const photoRepository = new PhotoRepository(photoRepositoryDataConnector)
 
+    const customerRepositoryDataConnector = new CustomerRepositoryDataConnector(datasource);
+    const customerRepository = new CustomerRepository(customerRepositoryDataConnector);
+
     new PhotoApi(photoRepository, app);
+    new CustomerApi(customerRepository, app);
+
     app.get("/", (_, res) => {
         return res.send("hello world");
     });
