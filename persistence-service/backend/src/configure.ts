@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import { Photo } from "./entities/photo";
 import Customer from "./entities/customer";
 import Author from "./entities/author";
+import Publisher from "./entities/publisher";
 
 export const postgresDataSource = new DataSource({
   type: "postgres",
@@ -10,7 +11,7 @@ export const postgresDataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [Photo, Customer, Author],
+  entities: [Photo, Customer, Author, Publisher],
   synchronize: true,
   logging: false,
 });
