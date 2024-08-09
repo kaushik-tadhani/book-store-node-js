@@ -52,7 +52,8 @@ export default class BookRepository {
     async post(book: Book): Promise<Result<Book>> {
 
         try {
-
+            
+        
             let author = await this.#authorDataConnector.findById({ author_id: book.author_id });
             if(!author) return { error: 'Author not found', errorCode: 400 };
             book.author = author;
@@ -60,6 +61,7 @@ export default class BookRepository {
             let publisher = await this.#publisherDataConnector.findById({ publisher_id: book.publisher_id });
             if(!publisher) return { error: 'Publisher not found', errorCode: 400 };
             book.publisher = publisher;
+
 
             let savedBook = await this.#dataConnector.create(book);
             return { data: savedBook };
