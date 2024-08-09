@@ -179,6 +179,40 @@ describe('Book Api', () => {
             });
     });
 
+    test('will throw an error if author is not found during insert operations', async () => {
+        let book: Book = new Book();
+        book.book_id = 2;
+        book.title = "book 2 update title";
+        book.genre = "Horror";
+        book.publish_date = new Date('1967-05-28');
+        book.format = "Hardcover";
+        book.price = 19;
+        book.author_id = 2;
+        book.publisher_id = 1;
+
+        let savedBook = await bookApi.post(book);
+        
+        expect(savedBook.errorCode).toBe(400);
+        expect(savedBook.error).toEqual('Author not found');
+    });
+
+    test('will throw an error if publisher is not found during insert operations', async () => {
+        let book: Book = new Book();
+        book.book_id = 2;
+        book.title = "book 2 update title";
+        book.genre = "Horror";
+        book.publish_date = new Date('1967-05-28');
+        book.format = "Hardcover";
+        book.price = 19;
+        book.author_id = 1;
+        book.publisher_id = 2;
+
+        let savedBook = await bookApi.post(book);
+        
+        expect(savedBook.errorCode).toBe(400);
+        expect(savedBook.error).toEqual('Publisher not found');
+    });
+
         
     it('should handle deleting a non-existent book', async () => {
         const nonExistentBookId = 9999;
