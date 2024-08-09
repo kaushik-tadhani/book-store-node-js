@@ -13,6 +13,9 @@ import { PhotoRepositoryDataConnector } from './repositories/photo-repository/ph
 import { CustomerRepositoryDataConnector } from './repositories/customer-repository/customerRepositoryDataConnector';
 import CustomerRepository from './repositories/customer-repository/customerRepository';
 import CustomerApi from './api/customerApi';
+import { AuthorRepositoryDataConnector } from './repositories/author-repository/authorRepositoryDataConnector';
+import AuthorRepository from './repositories/author-repository/authorRepository';
+import AuthorApi from './api/authorApi';
 
 (async () => {
     const app = express();
@@ -27,8 +30,12 @@ import CustomerApi from './api/customerApi';
     const customerRepositoryDataConnector = new CustomerRepositoryDataConnector(datasource);
     const customerRepository = new CustomerRepository(customerRepositoryDataConnector);
 
+    const authorRepositoryDataConnector = new AuthorRepositoryDataConnector(datasource);
+    const authorRepository = new AuthorRepository(authorRepositoryDataConnector);
+
     new PhotoApi(photoRepository, app);
     new CustomerApi(customerRepository, app);
+    new AuthorApi(authorRepository, app);
 
     app.get("/", (_, res) => {
         return res.send("hello world");
