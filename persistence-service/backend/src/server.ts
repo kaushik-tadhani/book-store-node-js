@@ -8,15 +8,13 @@ import cors from "cors";
 import express, { json } from "express";
 import postgresDataSource from "./configure";
 import PhotoApi from "./api/photoApi";
-import PhotoRepository from "./repository/photoRepository";
-import { PhotoRepositoryDataConnector } from './repository/photoRepositoryDataConnector';
+import PhotoRepository from "./repositories/photo-repository/photoRepository";
+import { PhotoRepositoryDataConnector } from './repositories/photo-repository/photoRepositoryDataConnector';
 
 (async () => {
     const app = express();
     app.use(cors());
     app.use(json());
-    
-    console.log(process.env.DB_HOST);
 
     const datasource = await postgresDataSource.initialize();
 

@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { DataSource } from "typeorm";
 import { Photo } from "../entities/photo";
-import PhotoRepository from "../repository/photoRepository";
+import PhotoRepository from "../repositories/photo-repository/photoRepository";
 import Result from "../utils/result";
 
 export default class PhotoApi {
